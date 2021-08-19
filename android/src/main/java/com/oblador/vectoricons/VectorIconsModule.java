@@ -71,7 +71,7 @@ public class VectorIconsModule extends ReactContextBaseJavaModule {
     Rect textBounds = new Rect();
     paint.getTextBounds(glyph, 0, glyph.length(), textBounds);
 
-    int offsetX = 0;
+    int offsetX = (size / 2) - ((int) paint.measureText(glyph) / 2);
     int offsetY = size - (int) paint.getFontMetrics().bottom;
 
     Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
