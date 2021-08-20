@@ -71,12 +71,9 @@ public class VectorIconsModule extends ReactContextBaseJavaModule {
     Rect textBounds = new Rect();
     paint.getTextBounds(glyph, 0, glyph.length(), textBounds);
 
-    int offsetX = (size / 2) - ((int) paint.measureText(glyph) / 2);
-    int offsetY = size - (int) paint.getFontMetrics().bottom;
-
-    Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+    Bitmap bitmap = Bitmap.createBitmap(textBounds.width(), textBounds.height(), Bitmap.Config.ARGB_8888); 
     Canvas canvas = new Canvas(bitmap);
-    canvas.drawText(glyph, offsetX, offsetY, paint);
+    canvas.drawText(glyph, -textBounds.left, -textBounds.top, paint);
 
     try {
       fos = new FileOutputStream(cacheFile);
@@ -110,7 +107,7 @@ public class VectorIconsModule extends ReactContextBaseJavaModule {
     }
   }
 
-  @ReactMethod(isBlockingSynchronousMethod = true)
+  @ReactMethod
   public String getImageForFontSync(String fontFamily, String glyph, Integer fontSize, Integer color) {
     try {
       return createGlyphImagePath(fontFamily, glyph, fontSize, color);
